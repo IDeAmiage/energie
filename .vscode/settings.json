@@ -1,0 +1,18 @@
+{
+    "python.linting.pylamaEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.completeFunctionParens": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true
+    },
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#ff0048",
+        "titleBar.activeForeground": "#ff0000",
+        "titleBar.border": "#ff0000"
+    }
+}

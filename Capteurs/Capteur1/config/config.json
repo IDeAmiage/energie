@@ -1,0 +1,25 @@
+{
+	"entry_point": {
+		"usage_point_id": "23191895667868",
+		"token": "FR7Gj9yIBKRevPb2UeNN9hmEaxP6IyRWl69ZtVNFqI6ZaM3C7qXcPb"
+	},
+	"sensor": {
+		"id": 1,
+		"name": "enedis1",
+		"data": {
+			"fournisseur": "ekWateur",
+			"type": "linky"
+		}
+	},
+	"place": {
+		"id": 1,
+		"name": "appartement1",
+		"data": {
+			"surface": 60,
+			"exposition": [
+				"est",
+				"ouest"
+			]
+		}
+	}
+}
