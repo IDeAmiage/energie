@@ -3,7 +3,7 @@ import json
 import logging
 import sys
 from pathlib import Path
-from unittest import result
+from typing import Union
 
 import pandas as pd
 import sqlalchemy
@@ -241,16 +241,23 @@ class Injection(Injector):
                 """
                 )
 
-    def injection(self):
-        """ """
+    def injection(self) -> None:
+        """
+        INJECT DATA (ENTRYPOINT) IN TABLE.
+        Place and sensor are tried first.
+        Only then, measures is injected in an append fashion  pandas to_sql
+        """
         self.create_sensor()
-
+        self.create_place()
         if self.exist_sensor() is True:
             with self.engine.connect() as self.db:
                 self.db.execute("commit;")
                 self.df.to_sql("measures", con=self.db, if_exists="append", index=False)
 
-    def show_measures(self):
+    def show_measures(self) -> None:
+        """
+        Handy function to show all measures.
+        """
         with self.engine.connect() as self.db:
             for r in self.db.execute(
                 """
@@ -259,20 +266,26 @@ class Injection(Injector):
             ):
                 print(r)
 
-    def search_sensor(self, string_to_search):
+    def search_sensor(self, string_to_search: Union[str, int]) -> None:
+        """
+        Handy function to search for a given sensor and show its values.
+        Search is possible by id or name
+        """
         with self.engine.connect() as self.db:
 
-            if type(string_to_search) == str:
+            if isinstance(string_to_search, str):
                 string_to_search = string_to_search.lower()
 
             for r in self.db.execute(
                 f"""
-                SELECT * FROM sensor WHERE sensor.id LIKE '%{string_to_search}%' OR sensor.name LIKE '%{string_to_search}%'
-            """
+                SELECT * FROM sensor WHERE sensor.id LIKE '%{string_to_search}%' OR
+                sensor.name LIKE '%{string_to_search}%'
+                """
             ):
                 print(r)
 
-    def query(self, q):
+    def query(self, q: str) -> sqlalchemy.engine.CursorResult:
+        """ """
         with self.engine.connect() as self.db:
             self.db.execute("commit;")
             return self.db.execute(q)
