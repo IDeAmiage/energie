@@ -7,7 +7,7 @@ from pathlib import Path
 to_add = str(Path(__file__).resolve().parent.parent.parent.parent)
 sys.path.insert(4, to_add)  # TODO
 
-from Lib.Senders.Injector import DataBase, Injection
+from Lib.Senders.Injector import DataBase
 
 # LOGGING SETUP ------
 logging.basicConfig()
@@ -21,10 +21,8 @@ CONFIG_ = (
     "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur1/config/config.json"
 )
 CON_ = "localhost"
-TEMPLATE_NAME_ = "enedis_2"
-DB_NAME_ = "enedis_camilo2"
-# from enedis.get_enedis import ENEDIS, Injector
-# from Sender.Injector import DataBase, Injection
+TEMPLATE_NAME_ = "enedis_temp"
+DB_NAME_ = "enedis_camilotemp"
 
 # RUN CREATION ------
 logging.info("Creating Databases ...")
