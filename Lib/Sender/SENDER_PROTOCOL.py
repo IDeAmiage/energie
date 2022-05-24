@@ -1,14 +1,18 @@
+# IMPORTS ------
+
+from typing import Protocol
+
+
 class Injector(Protocol):
     """
     DOC
     """
 
-    def give_sensor():
+    def create_sensor(self):
         ...
 
-    def give_data():
+    def create_place(self):
         ...
 
-    def give_place():
+    def injection(self):
         ...
-
