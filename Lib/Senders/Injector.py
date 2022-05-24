@@ -254,18 +254,6 @@ class Injection(Injector):
                 self.db.execute("commit;")
                 self.df.to_sql("measures", con=self.db, if_exists="append", index=False)
 
-    def show_measures(self) -> None:
-        """
-        Handy function to show all measures.
-        """
-        with self.engine.connect() as self.db:
-            for r in self.db.execute(
-                """
-                SELECT * FROM measures
-            """
-            ):
-                print(r)
-
     def search_sensor(self, string_to_search: Union[str, int]) -> None:
         """
         Handy function to search for a given sensor and show its values.
@@ -285,12 +273,18 @@ class Injection(Injector):
                 print(r)
 
     def query(self, q: str) -> sqlalchemy.engine.CursorResult:
-        """ """
+        """
+        Executes a query.
+        Returns the cursor
+        """
         with self.engine.connect() as self.db:
             self.db.execute("commit;")
             return self.db.execute(q)
 
-    def list_tables(self):
+    def list_tables(self) -> None:
+        """
+        Prints all tables in the database
+        """
         with self.engine.connect() as self.db:
             for r in self.db.execute(
                 """
@@ -299,7 +293,22 @@ class Injection(Injector):
             ):
                 print(r)
 
-    def show_sensor(self):
+    def show_measures(self) -> None:
+        """
+        Handy function to show all measures.
+        """
+        with self.engine.connect() as self.db:
+            for r in self.db.execute(
+                """
+                SELECT * FROM measures
+            """
+            ):
+                print(r)
+
+    def show_sensor(self) -> None:
+        """
+        Show all sensors from the table
+        """
         with self.engine.connect() as self.db:
             for r in self.db.execute(
                 """
