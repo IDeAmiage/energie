@@ -7,7 +7,7 @@ from typing import Union
 
 import pandas as pd
 import sqlalchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, exc
 
 # LOGGING SETUP ------
 logging.basicConfig()
@@ -163,7 +163,7 @@ class Injection(Injector):
     user: str = "postgres:adminida"
     port: str = "5432"
 
-    def __init__(self, dbname: str, meta: str, df: pd.DataFrame, ip: str) -> None:
+    def __init__(self, dbname: str, meta: dict, df: pd.DataFrame, ip: str) -> None:
         """
         Meta is an str with JSON format.
         Meta must have the following keys
@@ -180,7 +180,7 @@ class Injection(Injector):
         conn_string = f"{self.eng}://{self.user}@{ip}:{self.port}/{dbname}"
         self.engine = create_engine(conn_string)
 
-        self.meta = json.loads(meta)
+        self.meta: dict = meta
         self.dbname = dbname.lower()
         self.df = df
 
@@ -195,7 +195,8 @@ class Injection(Injector):
             """
             ):
 
-                if r[1] == self.meta["sensor"]["id"]:
+                if str(r[0]) == str(self.meta["sensor"]["id"]):
+                    logging.info("Sensor already exists")
                     return True
             return False
 
@@ -206,16 +207,19 @@ class Injection(Injector):
         """
         if self.exist_sensor() is False:
             with self.engine.connect() as self.db:
+                json_payload = json.dumps(self.meta.get("sensor").get("data"))
                 self.db.execute("commit;")
                 self.db.execute(
                     f"""
-                    INSERT INTO sensor VALUES ({self.meta['sensor']['id']},'{self.meta['sensor']['name']},{self.meta['sensor']['data']}');
+                    INSERT INTO sensor VALUES ({self.meta.get("sensor").get("id")},
+                    '{self.meta.get("sensor").get("name")}',
+                    '{json_payload}');
                 """
                 )
 
     def exist_place(self) -> bool:
         """
-        Verifies that a place exists in the table
+        Verifies that a place exists iexist_placen the table
         """
         with self.engine.connect() as self.db:
             for r in self.db.execute(
@@ -223,8 +227,11 @@ class Injection(Injector):
                 SELECT * FROM place
             """
             ):
-                if r[1] == self.meta["place"]["id"]:
+                print(r)
+                if str(r[0]) == str(self.meta["place"]["id"]):
+                    logging.info("Place already exists")
                     return True
+
             return False
 
     def create_place(self) -> None:
@@ -234,10 +241,13 @@ class Injection(Injector):
         """
         if self.exist_place() is False:
             with self.engine.connect() as self.db:
+                json_payload = json.dumps(self.meta.get("place").get("data"))
                 self.db.execute("commit;")
                 self.db.execute(
                     f"""
-                    INSERT INTO sensor VALUES ({self.meta['place']['id']},'{self.meta['place']['name']},{self.meta['place']['data']}');
+                    INSERT INTO place VALUES ({self.meta.get("place").get("id")},
+                    '{self.meta.get("place").get("name")}',
+                    '{json_payload}');
                 """
                 )
 
@@ -252,7 +262,18 @@ class Injection(Injector):
         if self.exist_sensor() is True:
             with self.engine.connect() as self.db:
                 self.db.execute("commit;")
-                self.df.to_sql("measures", con=self.db, if_exists="append", index=False)
+                for i in range(len(self.df)):
+                    try:
+                        self.df.iloc[i : i + 1].to_sql(
+                            "measures",
+                            con=self.db,
+                            if_exists="append",
+                            index=False,
+                        )
+                    except exc.IntegrityError:
+                        logging.info(
+                            "exc.IntegrityError. Row already present in db %s" % i
+                        )
 
     def search_sensor(self, string_to_search: Union[str, int]) -> None:
         """

@@ -12,6 +12,7 @@ to_add = str(Path(__file__).resolve().parent.parent.parent.parent)
 sys.path.insert(4, to_add)  # TODO
 logging.info(f"Path appended to sys.path {to_add}")
 from Lib.Getters.ENEDIS.get_enedis import ENEDIS
+from Lib.Senders.Injector import Injection
 
 CONFIG_ = (
     "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur1/config/config.json"
@@ -31,7 +32,7 @@ inject = Injection(dbname="enedis_camilo_v2", meta=meta, df=data, ip="localhost"
 logging.info("Injecting data")
 inject.injection()
 
-logger.info("Injected")
+logging.info("Injected")
 
 # RUN MAIN  ------
 # # LOOP
