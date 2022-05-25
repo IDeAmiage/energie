@@ -107,10 +107,10 @@ class DataBase:
 
             tp.execute(
                 """
-                CREATE TABLE measures ("dates" timestamp PRIMARY KEY, "val" real PRIMARY KEY,
-                "unit" text PRIMARY KEY, "place_id" bigint REFERENCES place (id),
-                "sensor_id" integer REFERENCES sensor (id));
-            """
+                CREATE TABLE measures ("dates" timestamp, "val" real,
+                "unit" text, "place_id" bigint REFERENCES place (id),
+                "sensor_id" integer REFERENCES sensor (id), PRIMARY KEY("dates","val" ,"unit" ));
+                """
             )
 
             tp.execute("commit;")
