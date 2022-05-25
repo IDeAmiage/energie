@@ -215,15 +215,16 @@ class ENEDIS(sensor):
                 json.dump(msg, json_file)
 
     # PROTOCOL QUERIES ------
-    def give_sensor_info(self):
-        # return json.dumps(self.sensor_info)
-        return {"sensor": self.sensor_info, "place": self.place_info}
+    def give_sensor_info(self) -> dict:
+        return self.sensor_info
 
-    def give_measure_info(self):
+    def give_measure_info(self) -> pd.DataFrame:
         data, _ = self.get_enedis_data_daily_consumption()
         data = self.coerce_data(data)
         return data
 
-    def give_place_info(self):
-        # return json.dumps(self.place_info)
-        return {"sensor": self.sensor_info, "place": self.place_info}
+    def give_place_info(self) -> dict:
+        return self.place_info
+
+    def give_meta_info(self) -> dict:
+        return {"sensor": self.give_sensor_info(), "place": self.give_place_info()}

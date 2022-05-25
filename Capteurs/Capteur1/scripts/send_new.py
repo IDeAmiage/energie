@@ -20,13 +20,13 @@ CONFIG_ = (
 e = ENEDIS(config_file=CONFIG_)
 # * Get data ---
 data = e.give_measure_info()
-sensor = e.give_sensor_info()
+meta = e.give_meta_info()
 assert data is not None
-# place = e.give_place_info()
+assert meta is not None
 
 # INJECTION ------
 logging.info("Creating Injection instance")
-inject = Injection(dbname="enedis_camilo2", meta=sensor, df=data, ip="localhost")
+inject = Injection(dbname="enedis_camilo_v2", meta=meta, df=data, ip="localhost")
 
 logging.info("Injecting data")
 inject.injection()
