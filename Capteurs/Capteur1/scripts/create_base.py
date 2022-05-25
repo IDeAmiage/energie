@@ -23,8 +23,8 @@ CONFIG_ = (
     "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur1/config/config.json"
 )
 CON_ = "localhost"
-TEMPLATE_NAME_ = "enedis_temp"
-DB_NAME_ = "enedis_camilotemp"
+TEMPLATE_NAME_ = "enedis_v2"
+DB_NAME_ = "enedis_camilo_v2"
 
 # RUN CREATION ------
 logging.info("Creating Databases ...")
