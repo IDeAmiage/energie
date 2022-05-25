@@ -3,6 +3,8 @@ import logging
 import sys
 from pathlib import Path
 
+from psycopg2 import DatabaseError
+
 # ADD ADDITIONAL LIB -----
 to_add = str(Path(__file__).resolve().parent.parent.parent.parent)
 sys.path.insert(4, to_add)  # TODO
