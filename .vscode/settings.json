@@ -11,8 +11,8 @@
         "source.organizeImports": true
     },
     "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#ff0048",
-        "titleBar.activeForeground": "#ff0000",
-        "titleBar.border": "#ff0000"
+        "titleBar.activeBackground": "#dad2d5",
+        "titleBar.activeForeground": "#fc0000",
+        "titleBar.border": "#f60000"
     }
 }
