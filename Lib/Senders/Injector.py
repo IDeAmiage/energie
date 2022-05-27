@@ -177,12 +177,12 @@ class Injection(Injector):
                 - data
 
         """
-        conn_string = f"{self.eng}://{self.user}@{ip}:{self.port}/{dbname}"
-        self.engine = create_engine(conn_string)
-
-        self.meta: dict = meta
         self.dbname = dbname.lower()
+        conn_string = f"{self.eng}://{self.user}@{ip}:{self.port}/{self.dbname}"
+        self.engine = create_engine(conn_string)
+        self.meta: dict = meta
         self.df = df
+        self.exist_place_or_sensor()
 
     def exist_sensor(self) -> bool:
         """

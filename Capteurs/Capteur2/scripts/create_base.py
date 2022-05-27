@@ -19,12 +19,9 @@ logging.info("Create based called")
 logging.info(f"Path appended to sys.path {to_add}")
 
 # CONFIGS ------
-CONFIG_ = (
-    "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur1/config/config.json"
-)
 CON_ = "localhost"
-TEMPLATE_NAME_ = "enedis_v2"
-DB_NAME_ = "enedis_cristiona_v2"
+TEMPLATE_NAME_ = "enedis_cristiona_v2"
+DB_NAME_ = "enedis_v2"
 
 # RUN CREATION ------
 logging.info("Creating Databases ...")

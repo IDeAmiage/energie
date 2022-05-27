@@ -5,32 +5,35 @@ from pathlib import Path
 
 # LOGGING SETUP ------
 logging.basicConfig()
-logging.getLogger().setLevel(logging.DEBUG)
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 # ADD ADDITIONAL LIB -----
 to_add = str(Path(__file__).resolve().parent.parent.parent.parent)
 sys.path.insert(4, to_add)  # TODO
-logging.info(f"Path appended to sys.path {to_add}")
+logger.info(f"Path appended to sys.path {to_add}")
 from Lib.Getters.ENEDIS.get_enedis import ENEDIS
+from Lib.Senders.Injector import Injection
 
+# CONFIGS ------
+CON_ = "localhost"
+DB_NAME_ = "rmm"
 CONFIG_ = (
-    "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur1/config/config.json"
+    "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur2/config/config.json"
 )
 # APPEND PARENT ------
 e = ENEDIS(config_file=CONFIG_)
 # * Get data ---
 data = e.give_measure_info()
-sensor = e.give_sensor_info()
+meta = e.give_meta_info()
 assert data is not None
-# place = e.give_place_info()
 
 # INJECTION ------
-logging.info("Creating Injection instance")
-inject = Injection(dbname="enedis_camilo2", meta=sensor, df=data, ip="localhost")
+logger.info("Creating Injection instance")
+inject = Injection(dbname=DB_NAME_, meta=meta, df=data, ip=CON_)
 
-logging.info("Injecting data")
+logger.info("Injecting data")
 inject.injection()
-
 logger.info("Injected")
 
 # RUN MAIN  ------
