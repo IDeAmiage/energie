@@ -17,7 +17,7 @@ from Lib.Senders.Injector import Injection
 
 # CONFIGS ------
 CON_ = "localhost"
-DB_NAME_ = "rmm"
+DB_NAME_ = "enedis_cristiona_v2"
 CONFIG_ = (
     "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur2/config/config.json"
 )

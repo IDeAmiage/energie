@@ -26,7 +26,6 @@ DB_NAME_ = "rmm"
 db = DataBase(ip=CON_)
 
 db.liste()
-
 # to_drop
 to_drop = ["rmm"]
 
