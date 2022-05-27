@@ -242,6 +242,7 @@ class Injection(Injector):
                 """
                 )
                 self.sensor_bool = True
+                logging.info("Sensor created")
 
     def create_place(self) -> None:
         """
@@ -260,6 +261,7 @@ class Injection(Injector):
                 """
                 )
                 self.place_bool = True
+                logging.info("Place created")
 
     def injection(self) -> None:
         """
