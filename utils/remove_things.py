@@ -1,3 +1,6 @@
+# DROP TABLES AND TEMPLATES
+
+
 # COMMON IMPORTS ------
 import logging
 import sys
