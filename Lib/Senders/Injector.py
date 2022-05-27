@@ -200,23 +200,6 @@ class Injection(Injector):
                     return True
             return False
 
-    def create_sensor(self) -> None:
-        """
-        Creates sensor row in the table if that sensor is not already defined.
-        Sensor data comes from meta object.
-        """
-        if self.exist_sensor() is False:
-            with self.engine.connect() as self.db:
-                json_payload = json.dumps(self.meta.get("sensor").get("data"))
-                self.db.execute("commit;")
-                self.db.execute(
-                    f"""
-                    INSERT INTO sensor VALUES ({self.meta.get("sensor").get("id")},
-                    '{self.meta.get("sensor").get("name")}',
-                    '{json_payload}');
-                """
-                )
-
     def exist_place(self) -> bool:
         """
         Verifies that a place exists iexist_placen the table
@@ -227,19 +210,45 @@ class Injection(Injector):
                 SELECT * FROM place
             """
             ):
-                print(r)
+
                 if str(r[0]) == str(self.meta["place"]["id"]):
                     logging.info("Place already exists")
                     return True
 
             return False
 
+    def exist_place_or_sensor(self) -> None:
+        """
+        Runs all verifications
+        """
+        logging.info("Verifying Place and Sensor existance")
+        self.sensor_bool = self.exist_sensor()
+        self.place_bool = self.exist_place()
+
+    def create_sensor(self) -> None:
+        """
+        Creates sensor row in the table if that sensor is not already defined.
+        Sensor data comes from meta object.
+        """
+        if self.sensor_bool is False:
+            with self.engine.connect() as self.db:
+                json_payload = json.dumps(self.meta.get("sensor").get("data"))
+                self.db.execute("commit;")
+                self.db.execute(
+                    f"""
+                    INSERT INTO sensor VALUES ({self.meta.get("sensor").get("id")},
+                    '{self.meta.get("sensor").get("name")}',
+                    '{json_payload}');
+                """
+                )
+                self.sensor_bool = True
+
     def create_place(self) -> None:
         """
         Creates a place row in the table if that place is not already defined.
         Place data comes from meta object.
         """
-        if self.exist_place() is False:
+        if self.place_bool is False:
             with self.engine.connect() as self.db:
                 json_payload = json.dumps(self.meta.get("place").get("data"))
                 self.db.execute("commit;")
@@ -250,6 +259,7 @@ class Injection(Injector):
                     '{json_payload}');
                 """
                 )
+                self.place_bool = True
 
     def injection(self) -> None:
         """
@@ -257,9 +267,11 @@ class Injection(Injector):
         Place and sensor are tried first.
         Only then, measures is injected in an append fashion  pandas to_sql
         """
-        self.create_sensor()
+
         self.create_place()
-        if self.exist_sensor() is True:
+        self.create_sensor()
+
+        if self.sensor_bool is True and self.place_bool is True:
             with self.engine.connect() as self.db:
                 self.db.execute("commit;")
                 for i in range(len(self.df)):
