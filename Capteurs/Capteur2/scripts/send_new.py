@@ -22,11 +22,11 @@ CONFIG_ = (
     "/home/camilodlt/Documents/energie/Project/Capteurs/Capteur2/config/config.json"
 )
 # APPEND PARENT ------
-e = ENEDIS(config_file=CONFIG_)
+# e = ENEDIS(config_file=CONFIG_)
 # * Get data ---
-data = e.give_measure_info()
-meta = e.give_meta_info()
-assert data is not None
+# data = e.give_measure_info()
+# meta = e.give_meta_info()
+# assert data is not None
 
 # # INJECTION ------
 # logger.info("Creating Injection instance")
@@ -42,8 +42,8 @@ import datetime
 import time
 
 today = datetime.datetime.today()
-day_init = today - datetime.timedelta(days=50)  # old 140  old 200
-days = 20
+day_init = today - datetime.timedelta(days=10)  # old 140  old 200
+days = 10
 for i in range(days):
     from_ = day_init.strftime("%Y-%m-%d")
     to_ = day_init + datetime.timedelta(days=1)
