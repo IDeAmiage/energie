@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 # Outils de création de bases, de récupération et d'injection de données
 
 ## Introduction
@@ -63,25 +64,18 @@ bd.exist("Nom à tester") # Vérifie si une base existe déjà à ce nom
 
 ## Injection de données
 
-Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut avoir préparé en amont un script suivant les protocoles Get et Sender (permettant d'avoir une standardisation)
+Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut avoir préparé en amont un script suivant les protocoles Getter et Sender (permettant d'avoir une standardisation), le but est de récupérer des _mesures_ stockés selon un certain format ainsi que des _metadonnées_ permettant d'identifier le capteur, le lieu ainsi que diverses informations stockées de façon flexible dans un Json.
+
+<br>
+
+Instanciation d'un objet Injection
 
 ```python
+inject = Injection(dbname="MaBase", meta=meta, df=data, ip="localhost")
 ```
 
-```python
-```
+Injection des données
 
 ```python
+inject.injection()
 ```
-
-```python
-```
-
-```python
-```
-
-```python
-```
-=======
-# 
->>>>>>> 9ffa2072ce916b27c9c08c6f70e7f5061a98010e
