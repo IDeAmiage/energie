@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Outils de création de bases, de récupération et d'injection de données
 
 ## Introduction
@@ -81,3 +82,6 @@ Maintenant que notre base est prête il ne reste plus qu'à injecter les donnée
 
 ```python
 ```
+=======
+# 
+>>>>>>> 9ffa2072ce916b27c9c08c6f70e7f5061a98010e
