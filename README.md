@@ -62,7 +62,7 @@ bd.exist("Nom à tester") # Vérifie si une base existe déjà à ce nom
 
 ## Injection de données
 
-Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut ...
+Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut avoir préparé en amont un script suivant les protocoles Get et Sender (permettant d'avoir une standardisation)
 
 ```python
 ```
