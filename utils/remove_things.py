@@ -26,7 +26,7 @@ db = DataBase(ip=CON_)
 
 db.liste()
 # to_drop
-to_drop = ["montemplate"]
+to_drop = ["montemplate", "mabase"]
 
 for i in to_drop:
     db.query(f"UPDATE pg_database SET datistemplate='false' WHERE datname='{i}';")

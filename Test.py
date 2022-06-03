@@ -2,7 +2,7 @@
 from Lib.Senders.Injector import DataBase
 
 # %%
-ip_serveur = "192.168.43.166"
+ip_serveur = "localhost"
 
 # %%
 bd = DataBase(ip_serveur)
