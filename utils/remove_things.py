@@ -19,15 +19,14 @@ from Lib.Getters.ENEDIS.get_enedis import ENEDIS
 from Lib.Senders.Injector import DataBase
 
 # CONFIGS ------
-CON_ = "localhost"
-DB_NAME_ = "rmm"
+CON_ = "192.168.43.166"
 
 # Injection
 db = DataBase(ip=CON_)
 
 db.liste()
 # to_drop
-to_drop = ["rmm"]
+to_drop = ["montemplate"]
 
 for i in to_drop:
     db.query(f"UPDATE pg_database SET datistemplate='false' WHERE datname='{i}';")

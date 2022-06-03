@@ -64,7 +64,7 @@ bd.exist("Nom à tester") # Vérifie si une base existe déjà à ce nom
 
 ## Injection de données
 
-Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut avoir préparé en amont un script suivant les protocoles Getter et Sender (permettant d'avoir une standardisation), le but est de récupérer des _mesures_ stockés selon un certain format ainsi que des _metadonnées_ permettant d'identifier le capteur, le lieu ainsi que diverses informations stockées de façon flexible dans un Json.
+Maintenant que notre base est prête il ne reste plus qu'à injecter les données provenant de notre capteur, pour ce faire il faut avoir préparé en amont un script suivant les protocoles Get et Sender (permettant d'avoir une standardisation), le but est de récupérer des _mesures_ stockés selon un certain format ainsi que des _metadonnées_ permettant d'identifier le capteur, le lieu ainsi que diverses informations stockées de façon flexible dans un Json.
 
 <br>
 
