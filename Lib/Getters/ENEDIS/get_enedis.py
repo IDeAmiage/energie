@@ -5,6 +5,7 @@ import http.client
 import json
 import logging
 import sys
+import time
 from pathlib import Path
 from typing import Optional, Protocol
 
@@ -129,7 +130,7 @@ class ENEDIS(sensor):
         """
         conn = http.client.HTTPSConnection(http_con)
         self.conn = conn
-        # return conn
+        time.sleep(2)
 
     # DATA QUERIES ------
     def request_enedis_con(self, payload: dict, headers: dict):
